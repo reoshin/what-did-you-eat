@@ -14,8 +14,8 @@ public class FoodList {
     // EFFECTS: add food in the list. If there is food with the same name already exist, 
     //          delete previous one and replace by new food
     // MODIFIES: this
-    public void addFood() {
-        // stub
+    public void addFood(Food food) { // stub
+        
     }
 
     // EFFECTS: find such food with the given foodName, and eats one time and returns calories consumed.
