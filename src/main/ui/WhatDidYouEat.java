@@ -73,7 +73,7 @@ public class WhatDidYouEat {
             System.out.println("Error!");
         }
     }
-    
+
     // MODIFIES: user
     // EFFECTS: add new food to user's food list
     private void addFood() {
@@ -95,14 +95,15 @@ public class WhatDidYouEat {
     // EFFECTS: display all foods in the list. If food list is empty, then print error message.
     private void loadFoodList() {
         ArrayList<Food> list = (user.getFoodList()).getFoodList();
-        if(list.isEmpty()) {
+        if (list.isEmpty()) {
             System.out.println("Your list is empty. Please start by adding new food!");
         } else {
             int index = 0;
             System.out.println("You currently have " + list.size() + " items" + " in food list");
-            for(Food currentFood : list) {
+            for (Food currentFood : list) {
                 index++;
-                System.out.println("\n" + index + ". " + currentFood.getName() + " (" + currentFood.getCalories() + " kcal)");
+                System.out.println("\n" + index + ". " + currentFood.getName() 
+                                    + " (" + currentFood.getCalories() + " kcal)");
             }
         }
     }
@@ -111,10 +112,10 @@ public class WhatDidYouEat {
     // EFFECTS: display all foods in the list, then find food in the given index number, then log food.
     private void logFood() {
         loadFoodList();
-        if(! (user.getFoodList()).getFoodList().isEmpty()) {
+        if (! (user.getFoodList()).getFoodList().isEmpty()) {
             System.out.println("Select food number to log");
             int num = input.nextInt() - 1;
-            while (num < 0|| num > user.getFoodListSize()) {
+            while (num < 0 || num > user.getFoodListSize()) {
                 System.out.println("Please select number from 1 ~ " + user.getFoodListSize());
                 num = input.nextInt() - 1;
             }

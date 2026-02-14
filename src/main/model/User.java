@@ -46,14 +46,15 @@ public class User {
     // MODIFIES: this
     // EFFECTS: set the score as INITIAL_DAILYSCORE + 50 * (dailyCaloriesConsumed / dailyCaloriesGoal)
     //          if dailyCaloriesConsumed <= dailyCaloriesGoal,
-    //          otherwise, set the score as INITIAL_SCORE - 50 * (dailyCaloriesConsumed - dailyCaloriesGoal) / dailyCaloriesGoal)
+    //          otherwise, set the score as INITIAL_SCORE - 50 * 
+    //          (dailyCaloriesConsumed - dailyCaloriesGoal) / dailyCaloriesGoal)
     public void updateDailyScore() {
         if (dailyCaloriesConsumed <= dailyCaloriesGoal) {
             double score = INITIAL_DAILYSCORE + 50.0 * ((double) dailyCaloriesConsumed / dailyCaloriesGoal);
             dailyScore = (int) Math.round(score);
         } else {
-            double score = INITIAL_DAILYSCORE - 50.0 * 
-                            ((double) (dailyCaloriesConsumed - dailyCaloriesGoal) / dailyCaloriesGoal);
+            double score = INITIAL_DAILYSCORE - 50.0
+                            * ((double) (dailyCaloriesConsumed - dailyCaloriesGoal) / dailyCaloriesGoal);
             dailyScore = (int) Math.round(score);
         }
     }
@@ -64,11 +65,11 @@ public class User {
     //          return ":/" if 25 < dailyScore < 50
     //          otherwise return ":("
     public String getSuccessStatus() {
-        if(dailyScore >= 75) {
+        if (dailyScore >= 75) {
             return ":D";
-        } else if(dailyScore >= 50) {
+        } else if (dailyScore >= 50) {
             return ":)";
-        } else if(dailyScore > 25) {
+        } else if (dailyScore > 25) {
             return ":/";
         }
         return ":(";
