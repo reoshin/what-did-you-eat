@@ -19,26 +19,15 @@ public class User {
         foodList = new FoodList();
     }
 
-    public int getDailyCaloriesGoal() {
-        return dailyCaloriesGoal;
-    }
-
-    public int getDailyScore() {
-        return dailyScore;
-    }
-
-    public int getDailyCaloriesConsumed() {
-        return dailyCaloriesConsumed;
-    }
-
-    public FoodList getFoodList() {
-        return foodList;
-    }
-
+    // REQUIRES: calories > 0
+    // MODIFIES: foodList
+    // EFFECTS: add food to a foodlist with given foodname and calories.
     public void addFood(String foodName, int calories) {
         foodList.addFood(new Food(foodName, calories));
     }
 
+    // REQUIRES: n > 0 and there should be at least one Food in foodList
+    // EFFECTS: return nth Food in foodList
     public Food findNthFood(int n) {
         return foodList.getNthFood(n);
     }
@@ -83,5 +72,25 @@ public class User {
             return ":/";
         }
         return ":(";
+    }
+
+    public int getDailyCaloriesGoal() {
+        return dailyCaloriesGoal;
+    }
+
+    public int getDailyScore() {
+        return dailyScore;
+    }
+
+    public int getDailyCaloriesConsumed() {
+        return dailyCaloriesConsumed;
+    }
+
+    public FoodList getFoodList() {
+        return foodList;
+    }
+
+    public int getFoodListSize() {
+        return foodList.getFoodListSize();
     }
 }
