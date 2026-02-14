@@ -45,4 +45,8 @@ public class FoodList {
     public Food getNthFood(int index) {
         return foodList.get(index);
     }
+
+    public int getFoodListSize() {
+        return foodList.size();
+    }
 }
