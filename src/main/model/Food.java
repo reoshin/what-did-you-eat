@@ -12,25 +12,27 @@ public class Food {
     // EFFECTS: construct Food object with given foodName, calories and
     //          set initial timeConsumed as 0, and add this food to FoodList.
 
-    public Food(String foodName, int calories) { // stub
+    public Food(String foodName, int calories) { 
+        this.foodName = foodName;
+        this.calories = calories;
+        this.timeConsumed = 0;
     }
 
     public int getCalories() { // stub
-        return 0;
+        return calories;
     }
 
     public String getName() { // stub
-        return "";
+        return foodName;
     }
     
     public int getTimeConsumed() {
-        // stub
-        return 0;
+        return timeConsumed;
     }
 
     // MODIFIES: this
     // EFFECTS: increases timeConsumed by 1
     public void eatFood() {
-        // stub
+        timeConsumed++;
     }
 }
