@@ -28,6 +28,9 @@ public class UserTest {
         Food currentFood = currentFoodList.getNthFood(0);
         assertEquals("Burrito", currentFood.getName());
 
+        Food currentFood2 = testUser.findNthFood(0);
+        assertEquals("Burrito", currentFood2.getName());
+
         // another add food
         testUser.addFood("French Fries", 250);
         currentFoodList = testUser.getFoodList();
