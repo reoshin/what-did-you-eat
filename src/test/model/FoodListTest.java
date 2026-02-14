@@ -40,14 +40,14 @@ public class FoodListTest {
         // duplicate test
         testFoodList.addFood(food1);
         currentFoodList = testFoodList.getFoodList();
-        assertEquals(currentFoodList.get(0), food1);
-        assertEquals(currentFoodList.size(), 1);
+        assertEquals(food1, currentFoodList.get(0));
+        assertEquals(1, testFoodList.getFoodListSize());
 
         // another food test
         testFoodList.addFood(food2);
         currentFoodList = testFoodList.getFoodList();
-        assertEquals(currentFoodList.get(0), food1);
-        assertEquals(currentFoodList.get(1), food2);
+        assertEquals(food1, currentFoodList.get(0));
+        assertEquals(food2, currentFoodList.get(1));
     }
 
     @Test
