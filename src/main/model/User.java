@@ -39,6 +39,10 @@ public class User {
         foodList.addFood(new Food(foodName, calories));
     }
 
+    public Food findNthFood(int n) {
+        return foodList.getNthFood(n);
+    }
+
 
     // REQUIRES: there should be a food with given name
     // EFFECTS: find food with foodName from FoodList and record as it has eaten
