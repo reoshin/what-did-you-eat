@@ -33,6 +33,7 @@ public class UserTest {
 
         // another add food
         testUser.addFood("French Fries", 250);
+        assertEquals(2, testUser.getFoodListSize());
         currentFoodList = testUser.getFoodList();
         currentFood = currentFoodList.getNthFood(1);
         assertEquals("French Fries", currentFood.getName());
