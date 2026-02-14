@@ -1,7 +1,6 @@
 package model;
 
 // Represents a food having name, the number of times eaten and calories (in kcal)
-
 public class Food {
     private String foodName;
     private int calories;

@@ -1,7 +1,5 @@
 package model;
 
-import java.util.ArrayList;
-
 // represent User with daily calories goal (in kcal), daily calories consumed (in kcal),
 // success status and daily score (out of 100)
 public class User {
