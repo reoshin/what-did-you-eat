@@ -25,7 +25,7 @@ class JsonReaderTest extends JsonTest {
 
     @Test
     void testReaderEmptyWorkRoom() {
-        JsonReader reader = new JsonReader("./data/testReaderEmptyWorkRoom.json");
+        JsonReader reader = new JsonReader("./data/testReaderEmptyFoodList.json");
         try {
             FoodList fl = reader.read();
             assertEquals(0, fl.getFoodListSize());
