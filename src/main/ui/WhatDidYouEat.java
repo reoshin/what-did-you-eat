@@ -1,14 +1,22 @@
 package ui;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
 import model.Food;
+import model.FoodList;
 import model.User;
 
 public class WhatDidYouEat {
+    private static final String JSON_STORE = "./data/foodList.json";
     private User user;
     private Scanner input;
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
 
     // EFFECTS: runs What Did You Eat application
     public WhatDidYouEat() {
@@ -40,6 +48,8 @@ public class WhatDidYouEat {
     // MODIFIES: user
     private void newUser() {
         input = new Scanner(System.in);
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
         System.out.println("Welcome to What Did You Eat!");
         System.out.println("Enter Your daily goal (in kcal)");
         int dailyGoal = input.nextInt();
@@ -48,6 +58,18 @@ public class WhatDidYouEat {
             dailyGoal = input.nextInt();
         }
         user = new User(dailyGoal);
+
+        System.out.println("Do you want to load your food list? (y/n)");
+        String letter = input.next();
+        letter = letter.toLowerCase();
+        while (! (letter.equals("y") || letter.equals("n"))) {
+            System.out.println("Error! Please select y or n.");
+            letter = input.next();
+            letter = letter.toLowerCase();
+        }
+        if (letter.equals("y")) {
+            loadFoodList();
+        }
     }
     
 
@@ -56,8 +78,9 @@ public class WhatDidYouEat {
         System.out.println("\nYour Daily Score: " + user.getDailyScore());
         System.out.println("\n" + user.getSuccessStatus());
         System.out.println("\ta -> add food");
-        System.out.println("\tl -> load my food list");
-        System.out.println("\te -> log food");
+        System.out.println("\tp -> print my food list");
+        System.out.println("\tl -> log food");
+        System.out.println("\ts -> save my food list");
         System.out.println("\tq -> quit");
     }
 
@@ -65,10 +88,12 @@ public class WhatDidYouEat {
     private void processCommand(String command) {
         if (command.equals("a")) {
             addFood();
+        } else if (command.equals("p")) {
+            displayFoodList();
         } else if (command.equals("l")) {
-            loadFoodList();
-        } else if (command.equals("e")) {
             logFood();
+        } else if (command.equals("s")) {
+            saveFoodList();
         } else {
             System.out.println("Error!");
         }
@@ -93,7 +118,7 @@ public class WhatDidYouEat {
     }
 
     // EFFECTS: display all foods in the list. If food list is empty, then print error message.
-    private void loadFoodList() {
+    private void displayFoodList() {
         ArrayList<Food> list = (user.getFoodList()).getFoodList();
         if (list.isEmpty()) {
             System.out.println("Your list is empty. Please start by adding new food!");
@@ -111,7 +136,7 @@ public class WhatDidYouEat {
     // MODIFIES: user
     // EFFECTS: display all foods in the list, then find food in the given index number, then log food.
     private void logFood() {
-        loadFoodList();
+        displayFoodList();
         if (! (user.getFoodList()).getFoodList().isEmpty()) {
             System.out.println("Select food number to log");
             int num = input.nextInt() - 1;
@@ -123,4 +148,30 @@ public class WhatDidYouEat {
             user.recordFood(foodName);
         }
     }
+
+    // MODIFIES: this
+    // EFFECTS: loads workroom from file
+    private void loadFoodList() {
+        try {
+            FoodList fl = jsonReader.read();
+            user.loadFoodList(fl);
+            System.out.println("Loaded your food list from " + JSON_STORE);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
+        }
+    }
+
+    // EFFECTS: saves the workroom to file
+    private void saveFoodList() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(user.getFoodList());
+            jsonWriter.close();
+            System.out.println("Saved your food list to " + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
+        }
+    }
+
+
 }

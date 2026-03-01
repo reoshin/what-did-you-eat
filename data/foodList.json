@@ -1,0 +1,14 @@
+{"food": [
+    {
+        "name": "Apple",
+        "calories": 150
+    },
+    {
+        "name": "Banana",
+        "calories": 240
+    },
+    {
+        "name": "Carrot",
+        "calories": 90
+    }
+]}
