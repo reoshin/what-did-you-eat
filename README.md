@@ -11,3 +11,5 @@ The intended users of *What Did You Eat Today?* is **anyone in the world** who w
 - As a user, I want to be able to check my daily score to track whether my eating meets my goal.
 - As a user, I want to be able to view a list of food I added.
 - As a user, I want to be able to select a food from my list to log what I ate.
+- As a user, I want to be able to save my food list to file (if I so choose)
+- As a user, when I start the program, I want to be given the option to load my food list from file.
