@@ -2,15 +2,19 @@ package model;
 
 import static org.junit.Assert.assertEquals;
 
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+
 public class UserTest {
     private User testUser;
+    private FoodList foodList;
 
     @BeforeEach
     public void setUp() {
         testUser = new User(1200);
+        foodList = new FoodList();
     }
 
     @Test
@@ -80,5 +84,12 @@ public class UserTest {
         testUser.recordFood("Burrito");
         assertEquals(":(", testUser.getSuccessStatus());
 
+    }
+
+    @Test
+    public void loadFoodListTest() {
+        foodList.addFood(new Food("Cookie", 230));
+        testUser.loadFoodList(foodList);
+        assertEquals("Cookie", ((testUser.getFoodList().getNthFood(0)).getName()));
     }
 }
