@@ -1,0 +1,17 @@
+{
+    "food": [
+        {
+            "foodName": "Burger",
+            "calories": 550
+        },
+        {
+            "foodName": "Cake",
+            "category": 750
+        },
+        {
+            "foodName": "Burrito",
+            "category": 1100
+        }
+
+    ]
+}
