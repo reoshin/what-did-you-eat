@@ -2,15 +2,17 @@ package model;
 
 import static org.junit.Assert.assertEquals;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+
 
 public class FoodTest {
     private Food food1;
     private Food food2;
     private Food food3;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         food1 = new Food("Apple", 130);
         food2 = new Food("Yogurt", 200);

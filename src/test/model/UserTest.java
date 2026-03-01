@@ -2,13 +2,13 @@ package model;
 
 import static org.junit.Assert.assertEquals;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class UserTest {
     private User testUser;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         testUser = new User(1200);
     }

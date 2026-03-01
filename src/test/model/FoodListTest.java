@@ -6,8 +6,9 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 
 public class FoodListTest {
     private Food food1;
@@ -16,7 +17,7 @@ public class FoodListTest {
     
     private FoodList testFoodList;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         food1 = new Food("Apple", 130);
         food2 = new Food("Yogurt", 200);
