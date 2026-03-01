@@ -2,8 +2,12 @@ package model;
 
 import java.util.ArrayList;
 
+import org.json.JSONObject;
+import persistence.Writable;
+import org.json.JSONArray;
+
 // Represents a list of food added by user
-public class FoodList {
+public class FoodList implements Writable {
     private ArrayList<Food> foodList;
     
     // EFFECTS: construct foodList with no food inside
@@ -48,5 +52,23 @@ public class FoodList {
 
     public int getFoodListSize() {
         return foodList.size();
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("food", foodsToJson());
+        return json;
+    }
+
+    // EFFECTS: returns things in this workroom as a JSON array
+    private JSONArray foodsToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Food f : foodList) {
+            jsonArray.put(f.toJson());
+        }
+
+        return jsonArray;
     }
 }
