@@ -5,8 +5,8 @@ import org.json.JSONObject;
 
 
 import java.io.*;
-import java.nio.file.FileAlreadyExistsException;
 
+// Represents a writer that writes JSON representation of workroom to file
 public class JsonWriter {
     private static final int TAB = 4;
     private PrintWriter writer;
@@ -20,25 +20,26 @@ public class JsonWriter {
     // MODIFIES: this
     // EFFECTS: opens writer; throws FileNotFouundException if destination file cannot
     // be opened for writing
-    public void open() throws FileAlreadyExistsException {
-        // stub
+    public void open() throws FileNotFoundException {
+        writer = new PrintWriter(new File(destination));
     }
 
     // MODIFIES: this
     // EFFECTS: writes JSON representation of foodlist to file
     public void write(FoodList fl) {
-        // stub
+        JSONObject json = fl.toJson();
+        saveToFile(json.toString(TAB));
     }
 
     // MODIFIES: this
     // EFFECTS: closes writer
     public void close() {
-        // stub
+        writer.close();
     }
 
     // MODIFIES: this
     // EFFECTS: writes string to file
     private void saveToFile(String json) {
-        // stub
+        writer.print(json);
     }
 }
