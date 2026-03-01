@@ -1,9 +1,9 @@
 // Reference: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
+
 package persistence;
 
 import model.Food;
 import model.FoodList;
-import model.User;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;

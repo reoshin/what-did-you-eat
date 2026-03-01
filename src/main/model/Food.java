@@ -5,7 +5,7 @@ import org.json.JSONObject;
 import persistence.Writable;
 
 // Represents a food having name, the number of times eaten and calories (in kcal)
-public class Food implements Writable{
+public class Food implements Writable {
     private String foodName;
     private int calories;
     private int timeConsumed;

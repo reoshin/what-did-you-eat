@@ -1,5 +1,7 @@
 // Reference: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
+
 package persistence;
+
 import model.FoodList;
 import org.json.JSONObject;
 
