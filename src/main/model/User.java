@@ -91,6 +91,10 @@ public class User {
         return foodList;
     }
 
+    public void loadFoodList(FoodList foodList) {
+        this.foodList = foodList;
+    }
+
     public int getFoodListSize() {
         return foodList.getFoodListSize();
     }
