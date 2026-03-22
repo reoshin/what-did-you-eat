@@ -16,10 +16,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 @ExcludeFromJacocoGeneratedReport
+
 // represents application's main window.
 public class WhatDidYouEatGUI extends JFrame {
     private static final int WIDTH = 400;
-    private static final int HEIGHT = 380;
+    private static final int HEIGHT = 450;
     private static final String JSON_STORE = "./data/foodList.json";
 
     private User user;
@@ -40,6 +41,7 @@ public class WhatDidYouEatGUI extends JFrame {
 
     private JPanel topPanel;
     private JPanel menuPanel;
+    private JScrollPane consumptionPanel;
 
     // Image Source : https://emojiisland.com/pages/free-download-emoji-icons-png
     private static final String SAD = "./images/Sad.png";
@@ -82,6 +84,7 @@ public class WhatDidYouEatGUI extends JFrame {
         listPanelInitialize();
         
         add(topPanel, BorderLayout.NORTH);
+        add(consumptionPanel);
         add(menuPanel, BorderLayout.SOUTH);
 
         setSize(WIDTH, HEIGHT);
@@ -91,7 +94,18 @@ public class WhatDidYouEatGUI extends JFrame {
     // MODIFIES: this
     // EFFECTS: initialize list panel
     public void listPanelInitialize() {
-        // stub
+        consumptionPanel = new JScrollPane();
+        JList<String> consumptionJList = displayFoodList(3);
+        consumptionPanel.add(consumptionJList);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: update list panel after user's food consumption
+    public void updateListPanel() {
+        JList<String> consumptionJList = displayFoodList(3);
+        consumptionPanel.setViewportView(consumptionJList);
+        consumptionPanel.revalidate();
+        consumptionPanel.repaint();
     }
 
 
@@ -202,24 +216,18 @@ public class WhatDidYouEatGUI extends JFrame {
     public void addFood() {
         JTextField foodNameField = new JTextField();
         JSpinner spinner = new JSpinner(new SpinnerNumberModel(500, 1, 5000, 50));
-
         JPanel addFoodPanel = new JPanel(new GridLayout(2, 2));
+
         addFoodPanel.add(new JLabel("Food name: "));
         addFoodPanel.add(foodNameField);
-
         addFoodPanel.add(new JLabel("Calories (in Kcal): "));
         addFoodPanel.add(spinner);
 
-        int result = JOptionPane.showConfirmDialog(
-                    this,
-                    addFoodPanel,
-                    "Add Food",
-                    JOptionPane.OK_CANCEL_OPTION
-                    );
-        
+        int result = JOptionPane.showConfirmDialog(this, addFoodPanel, "Add Food",
+                    JOptionPane.OK_CANCEL_OPTION);
+
         String foodName = foodNameField.getText();
         int foodCalories = (int) spinner.getValue();
-
         if (foodName.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please enter a food name.");
             return;
@@ -230,37 +238,38 @@ public class WhatDidYouEatGUI extends JFrame {
         JOptionPane.showMessageDialog(this, "Successfully added " + foodName + " to my food list!");
         foodListLabel.setText("You currently have " + (user.getFoodList()).getFoodList().size() 
                                                     + " items" + " in food list");
-
     }
 
     // EFFECTS: If food list is empty, then print error message.
     //          If food list is not empty, creat String Array List and
     //          convert it into JList<String>.
     //          if mode == 1, then print the list and return null,
-    //          if mode == 2, then return JList created.
+    //          if mode == 2, then return JList created, 
+    //          if mode == 3, then return JList without food has never been consumed.
     public JList<String> displayFoodList(int mode) {
         ArrayList<Food> list = (user.getFoodList()).getFoodList();
-        if (list.isEmpty()) {
-            JOptionPane.showMessageDialog(this,
-                                "Your list is empty. Please start by adding new food!");
+        if (list.isEmpty() && ! (mode == 3)) {
+            JOptionPane.showMessageDialog(this, "Your list is empty. Please start by adding new food!");
+            return null;
         } else {
             String[] foodArray = new String[list.size()];
-
             for (int i = 0; i < list.size(); i++) {
                 Food f = list.get(i);
-                foodArray[i] = (i + 1) + ". " + f.getName() + " (" + f.getCalories() + " kcal)";
+                if (mode == 3) {
+                    if (f.getTimeConsumed() > 0) {
+                        foodArray[i] = f.getName() + " (" + f.getCalories() + "kcal) " + f.getTimeConsumed() + " time";
+                    }
+                } else {
+                    foodArray[i] = (i + 1) + ". " + f.getName() + " (" + f.getCalories() + " kcal)";
+                }
             }
-
             JList<String> foodJList = new JList<>(foodArray);
-
             if (mode == 1) {
                 JOptionPane.showMessageDialog(this, foodJList, "My Food List", JOptionPane.INFORMATION_MESSAGE);
                 return null;
-            } else {
-                return foodJList;
             }
+            return foodJList;
         }
-        return null;
     }
 
     // MODIFIES: this
@@ -268,27 +277,30 @@ public class WhatDidYouEatGUI extends JFrame {
     public void logFood() {
         ArrayList<Food> list = (user.getFoodList()).getFoodList();
         JList<String> foodJList = displayFoodList(2);
-        int result = JOptionPane.showConfirmDialog(this, foodJList,
-                                            "Select a food to record",
-                                            JOptionPane.OK_CANCEL_OPTION,
-                                            JOptionPane.PLAIN_MESSAGE);
+        if (! (foodJList == null)) {
+            int result = JOptionPane.showConfirmDialog(this, foodJList,
+                                                "Select a food to record",
+                                                JOptionPane.OK_CANCEL_OPTION,
+                                                JOptionPane.PLAIN_MESSAGE);
 
-        if (result != JOptionPane.OK_OPTION) {
-            return;
+            if (result != JOptionPane.OK_OPTION) {
+                return;
+            }
+
+            int selectedIndex = foodJList.getSelectedIndex();
+
+            Food selectedFood = list.get(selectedIndex);
+            user.recordFood(selectedFood.getName());
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    selectedFood.getName() + " has been recorded for today!"
+            );
+
+            dailyScoreLabel.setText(getDailyStatusText());
+            updateBackground();
+            updateListPanel();
         }
-
-        int selectedIndex = foodJList.getSelectedIndex();
-
-        Food selectedFood = list.get(selectedIndex);
-        user.recordFood(selectedFood.getName());
-
-        JOptionPane.showMessageDialog(
-                this,
-                selectedFood.getName() + " has been recorded for today!"
-        );
-
-        dailyScoreLabel.setText(getDailyStatusText());
-        updateBackground();
     }
 
     // EFFECTS: saves the workroom to file
