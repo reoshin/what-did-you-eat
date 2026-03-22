@@ -10,5 +10,9 @@
     {
         "name": "Carrot",
         "calories": 90
+    },
+    {
+        "name": "Burger",
+        "calories": 800
     }
 ]}
