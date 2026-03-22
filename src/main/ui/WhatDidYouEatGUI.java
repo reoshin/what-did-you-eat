@@ -194,7 +194,36 @@ public class WhatDidYouEatGUI extends JFrame{
     // MODIFIES: this
     // EFFECTS: add new food to user's food list
     public void addFood() {
+        JTextField foodNameField = new JTextField();
+        JSpinner spinner = new JSpinner(new SpinnerNumberModel(500, 1, 5000, 50));
+
+        JPanel addFoodPanel = new JPanel(new GridLayout(2, 2));
+        addFoodPanel.add(new JLabel("Food name: "));
+        addFoodPanel.add(foodNameField);
+
+        addFoodPanel.add(new JLabel("Calories (in Kcal): "));
+        addFoodPanel.add(spinner);
+
+        int result = JOptionPane.showConfirmDialog(
+                    this,
+                    addFoodPanel,
+                    "Add Food",
+                    JOptionPane.OK_CANCEL_OPTION
+                    );
         
+        String foodName = foodNameField.getText();
+        int foodCalories = (int) spinner.getValue();
+
+        if (foodName.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter a food name.");
+            return;
+        }   
+
+        user.addFood(foodName, foodCalories);
+
+        JOptionPane.showMessageDialog(this, "Successfully added " + foodName + " to my food list!");
+        foodListLabel.setText("You currently have " + (user.getFoodList()).getFoodList().size() + " items" + " in food list");
+
     }
 
     // EFFECTS: If food list is empty, then print error message.
@@ -203,13 +232,66 @@ public class WhatDidYouEatGUI extends JFrame{
     //          if mode == 1, then print the list and return null,
     //          if mode == 2, then return JList created.
     public JList<String> displayFoodList(int mode) {
+        ArrayList<Food> list = (user.getFoodList()).getFoodList();
+        if (list.isEmpty()) {
+            JOptionPane.showMessageDialog(
+                this,
+                "Your list is empty. Please start by adding new food!"
+                );
+        } else {
+            String[] foodArray = new String[list.size()];
+
+            for (int i = 0; i < list.size(); i++) {
+                Food f = list.get(i);
+                foodArray[i] = (i + 1) + ". " + f.getName() + " (" + f.getCalories() + " kcal)";
+            }
+
+            JList<String> foodJList = new JList<>(foodArray);
+
+            if (mode == 1) {
+                JOptionPane.showMessageDialog(
+                this,
+                foodJList,
+                "My Food List",
+                JOptionPane.INFORMATION_MESSAGE
+                );
+                return null;
+            } else {
+                return foodJList;
+            }
+        }
         return null;
     }
 
     // MODIFIES: this
     // EFFECTS: display all foods in the list, then find food in the given index number, then log food.
     public void logFood() {
-        
+        ArrayList<Food> list = (user.getFoodList()).getFoodList();
+        JList<String> foodJList = displayFoodList(2);
+        int result = JOptionPane.showConfirmDialog(
+            this,
+            foodJList,
+            "Select a food to record",
+            JOptionPane.OK_CANCEL_OPTION,
+            JOptionPane.PLAIN_MESSAGE
+        );
+
+        if (result != JOptionPane.OK_OPTION) {
+            return;
+        }
+
+        int selectedIndex = foodJList.getSelectedIndex();
+
+        Food selectedFood = list.get(selectedIndex);
+        user.recordFood(selectedFood.getName());
+
+        JOptionPane.showMessageDialog(
+                this,
+                selectedFood.getName() + " has been recorded for today!"
+        );
+
+        dailyScoreLabel.setText(getDailyStatusText());
+        updateBackground();
     }
 
     // EFFECTS: saves the workroom to file
