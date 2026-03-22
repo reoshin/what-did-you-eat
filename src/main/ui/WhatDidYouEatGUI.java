@@ -38,10 +38,6 @@ public class WhatDidYouEatGUI extends JFrame{
     private JPanel topPanel;
     private JPanel menuPanel;
 
-    private ImageIcon happy;
-    private ImageIcon netural;
-    private ImageIcon sad;
-
     // Image Source : https://emojiisland.com/pages/free-download-emoji-icons-png
     private static final String SAD = "./images/Sad.png";
     private static final String HAPPY = "./images/Happy.png";
