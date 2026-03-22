@@ -160,10 +160,10 @@ public class WhatDidYouEatGUI extends JFrame {
         JSpinner spinner = new JSpinner(new SpinnerNumberModel(1500, 1, 5000, 100));
 
         int result = JOptionPane.showConfirmDialog(
-                    null,
-                    spinner,
-                    "Enter your daily goal (in Kcal)",
-                    JOptionPane.OK_CANCEL_OPTION
+                    this,
+                    new Object[] {"Enter your daily goal (in Kcal):", spinner},
+                    "Welcome To What Did You Eat",
+                    JOptionPane.DEFAULT_OPTION
                     );
         int dailyGoal = (int) spinner.getValue();
         user = new User(dailyGoal);
@@ -177,7 +177,7 @@ public class WhatDidYouEatGUI extends JFrame {
 
         int choice = JOptionPane.showOptionDialog(null, 
                     "Would you like to load the data?", 
-                    "Load Data", 
+                    "Data Reader", 
                     JOptionPane.YES_NO_CANCEL_OPTION, 
                     JOptionPane.QUESTION_MESSAGE,
                     null, 
@@ -228,6 +228,10 @@ public class WhatDidYouEatGUI extends JFrame {
 
         int result = JOptionPane.showConfirmDialog(this, addFoodPanel, "Add Food",
                     JOptionPane.OK_CANCEL_OPTION);
+        
+        if (result != JOptionPane.OK_OPTION) {
+            return;
+        }
 
         String foodName = foodNameField.getText();
         int foodCalories = (int) spinner.getValue();
@@ -292,13 +296,16 @@ public class WhatDidYouEatGUI extends JFrame {
 
             int selectedIndex = foodJList.getSelectedIndex();
 
+            if (selectedIndex < 0) {
+                JOptionPane.showMessageDialog(this, "Please select a food");
+                return;
+            }
+
             Food selectedFood = list.get(selectedIndex);
             user.recordFood(selectedFood.getName());
+            
 
-            JOptionPane.showMessageDialog(
-                    this,
-                    selectedFood.getName() + " has been recorded for today!"
-            );
+            JOptionPane.showMessageDialog(this, selectedFood.getName() + " has been recorded for today!");
 
             dailyScoreLabel.setText(getDailyStatusText());
             updateBackground();
@@ -314,7 +321,7 @@ public class WhatDidYouEatGUI extends JFrame {
             jsonWriter.close();
             JOptionPane.showMessageDialog(this, "Saved your food list to " + JSON_STORE);
         } catch (FileNotFoundException e) {
-            JOptionPane.showMessageDialog(this, "Saved your food list to " + JSON_STORE);
+            JOptionPane.showMessageDialog(this, "Unable to write to file: " + JSON_STORE);
         }
     }
 
