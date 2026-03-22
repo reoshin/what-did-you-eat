@@ -234,7 +234,19 @@ public class WhatDidYouEatGUI extends JFrame{
     // EFFECTS: update background colour based on user's daily score
     // MODIFIES: this
     public void updateBackground() {
-        
+        if (user.getDailyScore() > 70) {
+            emoji = new ImageIcon(HAPPY);
+            topPanel.setBackground(Color.GREEN);
+        } else if (user.getDailyScore() <= 25) {
+            emoji = new ImageIcon(SAD);
+            topPanel.setBackground(Color.RED);
+        } else {
+            emoji = new ImageIcon(NEUTRAL);
+            topPanel.setBackground(Color.YELLOW);
+        }
+        emojiLabel.setIcon(emoji);
+        topPanel.revalidate();
+        topPanel.repaint();
     }
 }
 
