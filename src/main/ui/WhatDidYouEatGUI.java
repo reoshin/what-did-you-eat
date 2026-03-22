@@ -75,13 +75,37 @@ public class WhatDidYouEatGUI extends JFrame{
     // MODIFIES: this
     // EFFECTS: initialize JFrame window where WhatDidYouEat will operate, and populates the tools to be used
     public void initializeGraphics() {
+        dailyScoreLabel = new JLabel(getDailyStatusText());
+        foodListLabel = new JLabel("You currently have " + (user.getFoodList()).getFoodList().size() + " items" + " in food list");
+        dailyEmojiLabel = new JLabel();
+
+        topPanelInitialize();
+        menuPanelInitialize();
         
+        add(topPanel, BorderLayout.NORTH);
+        add(menuPanel, BorderLayout.SOUTH);
+
+        setSize(WIDTH, HEIGHT);
+        setVisible(true);
     }
 
     // MODIFIES: this
     // EFFECTS: initialize top panel
     public void topPanelInitialize() {
-        
+        topPanel = new JPanel();
+        topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.Y_AXIS));
+
+        dailyScoreLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        dailyEmojiLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        emojiLabel = new JLabel();
+        emojiLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        topPanel.add(dailyScoreLabel);
+        topPanel.add(dailyEmojiLabel);
+        topPanel.add(emojiLabel);
+
+        updateBackground();
     }
 
     // MODIFIES: this
@@ -93,7 +117,17 @@ public class WhatDidYouEatGUI extends JFrame{
     // MODIFIES: this
     // EFFECTS: initialize User by asking their calorie goal
     public void initializeUser() {
-        
+        JSpinner spinner = new JSpinner(new SpinnerNumberModel(1500, 1, 5000, 100));
+
+        int result = JOptionPane.showConfirmDialog(
+                    null,
+                    spinner,
+                    "Enter your daily goal (in Kcal)",
+                    JOptionPane.OK_CANCEL_OPTION
+                    );
+        int dailyGoal = (int) spinner.getValue();
+        user = new User(dailyGoal);
+        loadFoodListOption();
     }
 
     // MODIFIES: this
