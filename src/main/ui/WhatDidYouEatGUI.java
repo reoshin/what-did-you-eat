@@ -20,7 +20,7 @@ import java.util.ArrayList;
 // represents application's main window.
 public class WhatDidYouEatGUI extends JFrame {
     private static final int WIDTH = 400;
-    private static final int HEIGHT = 450;
+    private static final int HEIGHT = 500;
     private static final String JSON_STORE = "./data/foodList.json";
 
     private User user;
@@ -96,7 +96,10 @@ public class WhatDidYouEatGUI extends JFrame {
     public void listPanelInitialize() {
         consumptionPanel = new JScrollPane();
         JList<String> consumptionJList = displayFoodList(3);
-        consumptionPanel.add(consumptionJList);
+        consumptionPanel.setViewportView(consumptionJList);
+
+        JLabel title = new JLabel("My Day: What Did I Eat Today?");
+        consumptionPanel.setColumnHeaderView(title);
     }
 
     // MODIFIES: this
