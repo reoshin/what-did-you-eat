@@ -1,7 +1,6 @@
 package ui;
 
-import java.util.Scanner;
-
+import model.Food;
 import model.FoodList;
 import model.User;
 import persistence.JsonReader;
@@ -9,18 +8,17 @@ import persistence.JsonWriter;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 // represents application's main window.
 public class WhatDidYouEatGUI extends JFrame{
     private static final int WIDTH = 400;
-    private static final int HEIGHT = 800;
+    private static final int HEIGHT = 380;
 
 	private static final String JSON_STORE = "./data/foodList.json";
+
     private User user;
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
@@ -29,14 +27,16 @@ public class WhatDidYouEatGUI extends JFrame{
     private JButton printButton;
     private JButton logButton;
     private JButton saveButton;
-    private JButton loadButton;
+
+
 
     // Constructor sets up visual window and user.
     public WhatDidYouEatGUI() {
         super("What Did You Eat?");
         initializeFields();
+        initializeUser();
         initializeGraphics();
-        initializeInteraction();
+        mainInterface();
     }
 
     // EFFECTS: initialize json writer and reader.
@@ -46,21 +46,40 @@ public class WhatDidYouEatGUI extends JFrame{
         jsonReader = new JsonReader(JSON_STORE);
     }
 
+    // EFFECTS: return get daily status string
+    public String getDailyStatusText() {
+        return "Daily Score: " + user.getDailyScore() + 
+                                    "  |  Daily Consumed Calories: " + user.getDailyCaloriesConsumed() 
+                                    + " / " + user.getDailyCaloriesGoal();
+    }
+
     // MODIFIES: this
     // EFFECTS: initialize JFrame window where WhatDidYouEat will operate, and populates the tools to be used
     public void initializeGraphics() {
-        setTitle("What Did You Eat?");
-        setSize(WIDTH, HEIGHT);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(new BorderLayout());
-        setLocationRelativeTo(null);
+        
+    }
 
-        askForLoadFoodlist();
+    // MODIFIES: this
+    // EFFECTS: initialize top panel
+    public void topPanelInitialize() {
+        
+    }
+
+    // MODIFIES: this
+    // EFFECTS: initialize menu panel
+    public void menuPanelInitialize() {
+        
+    }
+
+    // MODIFIES: this
+    // EFFECTS: initialize User by asking their calorie goal
+    public void initializeUser() {
+        
     }
 
     // MODIFIES: this
     // EFFECTS: asks user to load foodlist or not.
-    private void askForLoadFoodlist() {
+    public void loadFoodListOption() {
         Object[] options = {"Yes", "No"};
 
         int choice = JOptionPane.showOptionDialog(null, 
@@ -82,7 +101,7 @@ public class WhatDidYouEatGUI extends JFrame{
 
     // MODIFIES: this
     // EFFECTS: loads workroom from file
-    private void loadFoodList() {
+    public void loadFoodList() {
         try {
             FoodList fl = jsonReader.read();
             user.loadFoodList(fl);
@@ -92,15 +111,56 @@ public class WhatDidYouEatGUI extends JFrame{
         }
     }
 
-    // MODIFIES: this
-	// EFFECTS:  initializes a DrawingMouseListener to be used in the JFrame
-    private void initializeInteraction() {
-        // stub
-    }
 
     // MODIFIES: this
     // EFFECTS: a helper method which declares and instaniates all options.
-    private void createMenu() {
+    public void mainInterface() {
+        
+    }
+
+    // MODIFIES: this
+    // EFFECTS: add new food to user's food list
+    public void addFood() {
+        
+    }
+
+    // EFFECTS: If food list is empty, then print error message.
+    //          If food list is not empty, creat String Array List and
+    //          convert it into JList<String>.
+    //          if mode == 1, then print the list and return null,
+    //          if mode == 2, then return JList created.
+    public JList<String> displayFoodList(int mode) {
+        return null;
+    }
+
+    // MODIFIES: this
+    // EFFECTS: display all foods in the list, then find food in the given index number, then log food.
+    public void logFood() {
+        
+    }
+
+    // EFFECTS: saves the workroom to file
+    public void saveFoodList() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(user.getFoodList());
+            jsonWriter.close();
+            JOptionPane.showMessageDialog(
+                this,
+                "Saved your food list to " + JSON_STORE
+            );
+        } catch (FileNotFoundException e) {
+            JOptionPane.showMessageDialog(
+                this,
+                "Saved your food list to " + JSON_STORE
+            );
+        }
+    }
+
+
+    // EFFECTS: update background colour based on user's daily score
+    // MODIFIES: this
+    public void updateBackground() {
         
     }
 }
