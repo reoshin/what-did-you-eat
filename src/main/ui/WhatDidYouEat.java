@@ -4,6 +4,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import ca.ubc.cs.ExcludeFromJacocoGeneratedReport;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
@@ -11,6 +13,7 @@ import model.Food;
 import model.FoodList;
 import model.User;
 
+@ExcludeFromJacocoGeneratedReport
 public class WhatDidYouEat {
     private static final String JSON_STORE = "./data/foodList.json";
     private User user;

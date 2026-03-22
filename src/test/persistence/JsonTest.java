@@ -6,6 +6,9 @@ import model.Food;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import ca.ubc.cs.ExcludeFromJacocoGeneratedReport;
+
+@ExcludeFromJacocoGeneratedReport
 public class JsonTest {
     protected void checkFood(String foodName, int calories, Food food) {
         assertEquals(foodName, food.getName());

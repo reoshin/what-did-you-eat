@@ -7,11 +7,15 @@ import persistence.JsonReader;
 import persistence.JsonWriter;
 
 import javax.swing.*;
+
+import ca.ubc.cs.ExcludeFromJacocoGeneratedReport;
+
 import java.awt.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
+@ExcludeFromJacocoGeneratedReport
 // represents application's main window.
 public class WhatDidYouEatGUI extends JFrame {
     private static final int WIDTH = 400;
