@@ -79,6 +79,7 @@ public class WhatDidYouEatGUI extends JFrame {
 
         topPanelInitialize();
         menuPanelInitialize();
+        listPanelInitialize();
         
         add(topPanel, BorderLayout.NORTH);
         add(menuPanel, BorderLayout.SOUTH);
@@ -86,6 +87,13 @@ public class WhatDidYouEatGUI extends JFrame {
         setSize(WIDTH, HEIGHT);
         setVisible(true);
     }
+
+    // MODIFIES: this
+    // EFFECTS: initialize list panel
+    public void listPanelInitialize() {
+        // stub
+    }
+
 
     // MODIFIES: this
     // EFFECTS: initialize top panel
