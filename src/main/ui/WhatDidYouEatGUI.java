@@ -13,11 +13,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 // represents application's main window.
-public class WhatDidYouEatGUI extends JFrame{
+public class WhatDidYouEatGUI extends JFrame {
     private static final int WIDTH = 400;
     private static final int HEIGHT = 380;
-
-	private static final String JSON_STORE = "./data/foodList.json";
+    private static final String JSON_STORE = "./data/foodList.json";
 
     private User user;
     private JsonWriter jsonWriter;
@@ -42,9 +41,7 @@ public class WhatDidYouEatGUI extends JFrame{
     private static final String SAD = "./images/Sad.png";
     private static final String HAPPY = "./images/Happy.png";
     private static final String NEUTRAL = "./images/Neutral.png";
-
-
-
+    
     // Constructor sets up visual window and user.
     public WhatDidYouEatGUI() {
         super("What Did You Eat?");
@@ -63,16 +60,17 @@ public class WhatDidYouEatGUI extends JFrame{
 
     // EFFECTS: return get daily status string
     public String getDailyStatusText() {
-        return "Daily Score: " + user.getDailyScore() + 
-                                    "  |  Daily Consumed Calories: " + user.getDailyCaloriesConsumed() 
-                                    + " / " + user.getDailyCaloriesGoal();
+        return "Daily Score: " + user.getDailyScore() 
+                                + "  |  Daily Consumed Calories: " + user.getDailyCaloriesConsumed() 
+                                + " / " + user.getDailyCaloriesGoal();
     }
 
     // MODIFIES: this
     // EFFECTS: initialize JFrame window where WhatDidYouEat will operate, and populates the tools to be used
     public void initializeGraphics() {
         dailyScoreLabel = new JLabel(getDailyStatusText());
-        foodListLabel = new JLabel("You currently have " + (user.getFoodList()).getFoodList().size() + " items" + " in food list");
+        foodListLabel = new JLabel("You currently have " + (user.getFoodList()).getFoodList().size() 
+                                    + " items" + " in food list");
         dailyEmojiLabel = new JLabel();
 
         topPanelInitialize();
@@ -149,13 +147,13 @@ public class WhatDidYouEatGUI extends JFrame{
         Object[] options = {"Yes", "No"};
 
         int choice = JOptionPane.showOptionDialog(null, 
-            "Would you like to load the data?", 
-            "Load Data", 
-            JOptionPane.YES_NO_CANCEL_OPTION, 
-            JOptionPane.QUESTION_MESSAGE,
-             null, 
-             options, 
-             options[0]);
+                    "Would you like to load the data?", 
+                    "Load Data", 
+                    JOptionPane.YES_NO_CANCEL_OPTION, 
+                    JOptionPane.QUESTION_MESSAGE,
+                    null, 
+                    options, 
+                    options[0]);
         if (choice == JOptionPane.YES_OPTION) {
             loadFoodList();
         } else {
@@ -218,7 +216,8 @@ public class WhatDidYouEatGUI extends JFrame{
         user.addFood(foodName, foodCalories);
 
         JOptionPane.showMessageDialog(this, "Successfully added " + foodName + " to my food list!");
-        foodListLabel.setText("You currently have " + (user.getFoodList()).getFoodList().size() + " items" + " in food list");
+        foodListLabel.setText("You currently have " + (user.getFoodList()).getFoodList().size() 
+                                                    + " items" + " in food list");
 
     }
 
@@ -230,10 +229,8 @@ public class WhatDidYouEatGUI extends JFrame{
     public JList<String> displayFoodList(int mode) {
         ArrayList<Food> list = (user.getFoodList()).getFoodList();
         if (list.isEmpty()) {
-            JOptionPane.showMessageDialog(
-                this,
-                "Your list is empty. Please start by adding new food!"
-                );
+            JOptionPane.showMessageDialog(this,
+                                "Your list is empty. Please start by adding new food!");
         } else {
             String[] foodArray = new String[list.size()];
 
@@ -245,12 +242,7 @@ public class WhatDidYouEatGUI extends JFrame{
             JList<String> foodJList = new JList<>(foodArray);
 
             if (mode == 1) {
-                JOptionPane.showMessageDialog(
-                this,
-                foodJList,
-                "My Food List",
-                JOptionPane.INFORMATION_MESSAGE
-                );
+                JOptionPane.showMessageDialog(this, foodJList, "My Food List", JOptionPane.INFORMATION_MESSAGE);
                 return null;
             } else {
                 return foodJList;
@@ -264,13 +256,10 @@ public class WhatDidYouEatGUI extends JFrame{
     public void logFood() {
         ArrayList<Food> list = (user.getFoodList()).getFoodList();
         JList<String> foodJList = displayFoodList(2);
-        int result = JOptionPane.showConfirmDialog(
-            this,
-            foodJList,
-            "Select a food to record",
-            JOptionPane.OK_CANCEL_OPTION,
-            JOptionPane.PLAIN_MESSAGE
-        );
+        int result = JOptionPane.showConfirmDialog(this, foodJList,
+                                            "Select a food to record",
+                                            JOptionPane.OK_CANCEL_OPTION,
+                                            JOptionPane.PLAIN_MESSAGE);
 
         if (result != JOptionPane.OK_OPTION) {
             return;
@@ -296,18 +285,11 @@ public class WhatDidYouEatGUI extends JFrame{
             jsonWriter.open();
             jsonWriter.write(user.getFoodList());
             jsonWriter.close();
-            JOptionPane.showMessageDialog(
-                this,
-                "Saved your food list to " + JSON_STORE
-            );
+            JOptionPane.showMessageDialog(this, "Saved your food list to " + JSON_STORE);
         } catch (FileNotFoundException e) {
-            JOptionPane.showMessageDialog(
-                this,
-                "Saved your food list to " + JSON_STORE
-            );
+            JOptionPane.showMessageDialog(this, "Saved your food list to " + JSON_STORE);
         }
     }
-
 
     // EFFECTS: update background colour based on user's daily score
     // MODIFIES: this
@@ -327,5 +309,3 @@ public class WhatDidYouEatGUI extends JFrame{
         topPanel.repaint();
     }
 }
-
-
