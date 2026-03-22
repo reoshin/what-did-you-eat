@@ -99,7 +99,7 @@ public class WhatDidYouEat {
         }
     }
 
-    // MODIFIES: user
+    // MODIFIES: this
     // EFFECTS: add new food to user's food list
     private void addFood() {
         input.nextLine();
@@ -133,7 +133,7 @@ public class WhatDidYouEat {
         }
     }
 
-    // MODIFIES: user
+    // MODIFIES: this
     // EFFECTS: display all foods in the list, then find food in the given index number, then log food.
     private void logFood() {
         displayFoodList();
