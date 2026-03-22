@@ -111,7 +111,24 @@ public class WhatDidYouEatGUI extends JFrame{
     // MODIFIES: this
     // EFFECTS: initialize menu panel
     public void menuPanelInitialize() {
-        
+        printButton = new JButton("View My Food List");
+        addButton = new JButton("Add Food to My Food List");
+        saveButton = new JButton("Save My Food List");
+
+        logButton = new JButton("My day: Record Meal");
+        printButton.setForeground(Color.BLUE);
+        addButton.setForeground(Color.BLUE);
+        saveButton.setForeground(Color.RED);
+
+        menuPanel = new JPanel();
+        menuPanel.setLayout(new BoxLayout(menuPanel, BoxLayout.Y_AXIS));
+
+        menuPanel.add(foodListLabel);
+        menuPanel.add(printButton);
+        menuPanel.add(addButton);
+        menuPanel.add(saveButton);
+
+        menuPanel.add(logButton);
     }
 
     // MODIFIES: this
@@ -168,7 +185,10 @@ public class WhatDidYouEatGUI extends JFrame{
     // MODIFIES: this
     // EFFECTS: a helper method which declares and instaniates all options.
     public void mainInterface() {
-        
+        addButton.addActionListener(e -> addFood());
+        printButton.addActionListener(e -> displayFoodList(1));
+        saveButton.addActionListener(e -> saveFoodList());
+        logButton.addActionListener(e -> logFood());
     }
 
     // MODIFIES: this
