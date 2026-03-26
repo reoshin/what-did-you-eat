@@ -10,6 +10,8 @@ import model.Event;
 import java.util.Calendar;
 import java.util.Date;
 
+// Reference: https://github.students.cs.ubc.ca/CPSC210/AlarmSystem
+
 public class EventTest {
     private Event e;
     private Date d;

@@ -11,6 +11,8 @@ import java.util.Iterator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+// Reference: https://github.students.cs.ubc.ca/CPSC210/AlarmSystem
+
 public class EventLogTest {
     private Event e1;
     private Event e2;
