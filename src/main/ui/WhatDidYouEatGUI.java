@@ -1,5 +1,7 @@
 package ui;
 
+import model.Event;
+import model.EventLog;
 import model.Food;
 import model.FoodList;
 import model.User;
@@ -11,6 +13,8 @@ import javax.swing.*;
 import ca.ubc.cs.ExcludeFromJacocoGeneratedReport;
 
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -55,6 +59,29 @@ public class WhatDidYouEatGUI extends JFrame {
         initializeUser();
         initializeGraphics();
         mainInterface();
+        initializeQuitOptions();
+
+    }
+
+    // EFFECTS: set the quit option
+    // MODIFIES: this
+    public void initializeQuitOptions() {
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                int input = JOptionPane.showOptionDialog(null,
+                        "Are you sure you want to quit?", 
+                        "Exit Confirmation", 
+                        JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+                if (input == JOptionPane.YES_OPTION) {
+                    EventLog events = EventLog.getInstance();
+                    for (Event event : events) {
+                        System.out.println(event.getDescription());
+                    }
+                    System.exit(0);
+                }
+            }
+        });
     }
 
     // EFFECTS: initialize json writer and reader.
@@ -167,6 +194,7 @@ public class WhatDidYouEatGUI extends JFrame {
                     );
         int dailyGoal = (int) spinner.getValue();
         user = new User(dailyGoal);
+        EventLog.getInstance().logEvent(new Event("Daily calories goal has been set to " + dailyGoal + " calories"));
         loadFoodListOption();
     }
 
@@ -184,9 +212,11 @@ public class WhatDidYouEatGUI extends JFrame {
                     options, 
                     options[0]);
         if (choice == JOptionPane.YES_OPTION) {
+            EventLog.getInstance().logEvent(new Event("User choose to load data."));
             loadFoodList();
         } else {
             JOptionPane.showMessageDialog(null, "Starting without loading data.");
+            EventLog.getInstance().logEvent(new Event("User choose not to load data."));
         }
 
         setVisible(true);
@@ -199,8 +229,10 @@ public class WhatDidYouEatGUI extends JFrame {
             FoodList fl = jsonReader.read();
             user.loadFoodList(fl);
             JOptionPane.showMessageDialog(null, "Loaded your food list from " + JSON_STORE);
+            EventLog.getInstance().logEvent(new Event("Loaded your food list from " + JSON_STORE));
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Unable to read from file: " + JSON_STORE);
+            EventLog.getInstance().logEvent(new Event("Error: failed to load data from file " + JSON_STORE));
         }
     }
 
@@ -243,6 +275,7 @@ public class WhatDidYouEatGUI extends JFrame {
         user.addFood(foodName, foodCalories);
 
         JOptionPane.showMessageDialog(this, "Successfully added " + foodName + " to my food list!");
+        EventLog.getInstance().logEvent(new Event(foodName + " has been added to my food list."));
         foodListLabel.setText("You currently have " + (user.getFoodList()).getFoodList().size() 
                                                     + " items" + " in food list");
     }
@@ -306,6 +339,8 @@ public class WhatDidYouEatGUI extends JFrame {
             
 
             JOptionPane.showMessageDialog(this, selectedFood.getName() + " has been recorded for today!");
+            EventLog.getInstance().logEvent(new Event(selectedFood.getName() + " has been added to my day."));
+            
 
             dailyScoreLabel.setText(getDailyStatusText());
             updateBackground();

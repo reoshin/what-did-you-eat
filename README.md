@@ -23,3 +23,18 @@ The intended users of *What Did You Eat Today?* is **anyone in the world** who w
 - You can locate my visual component by looking at the emoji and background colour in the main window.
 - You can save the state of my application by clicking the button "Save My Food List".
 - You can reload the state of my application by selecting "Yes" when you are asked to load previous data at the program launch.
+
+## Phase 4: Task 2
+A sample of the events
+
+Daily calories goal has been set to 1500 calories
+User choose to load data.
+Loaded your food list from ./data/foodList.json
+Burrito has been added to my food list.
+Chicken Legs has been added to my food list.
+Chicken Legs has been added to my day.
+Chicken Legs has been added to my day.
+Apple has been added to my day.
+Banana has been added to my day.
+Banana has been added to my day.
+Carrot has been added to my day.
