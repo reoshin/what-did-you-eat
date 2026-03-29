@@ -38,3 +38,8 @@ Apple has been added to my day.
 Banana has been added to my day.
 Banana has been added to my day.
 Carrot has been added to my day.
+
+## Phase 4: Task 3
+Reflecting on my UML class diagram, one refactoring I would consider is improving the separation of responsibilities between classes if I had more time. In particular, WhatDidYouEatGUI class appears to handle all user interface logic and application logic in the same class. To improve this, I would make two or more separate classes like controller classes that manages different functionality of the program GUI. This change would better follow Single Responsibility Principle and make easy to maintain the codes.
+
+In addition, the current structure of data persistence is tightly coupled to Food and FoodList class. With more time, I would refactor JsonReader and JsonWriter classes to be more general so that they can handle different types of data (e.g. saving state of user's daily score) other than the FoodList. While this change would make the code more reusable and easier to extend, it may also cause additional complexity, so there is a trade-off between these refactoring.
