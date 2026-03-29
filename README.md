@@ -27,16 +27,16 @@ The intended users of *What Did You Eat Today?* is **anyone in the world** who w
 ## Phase 4: Task 2
 A sample of the events
 
-Daily calories goal has been set to 1500 calories
-User choose to load data.
-Loaded your food list from ./data/foodList.json
-Burrito has been added to my food list.
-Chicken Legs has been added to my food list.
-Chicken Legs has been added to my day.
-Chicken Legs has been added to my day.
-Apple has been added to my day.
-Banana has been added to my day.
-Banana has been added to my day.
+Daily calories goal has been set to 1500 calories.\
+User choose to load data.\
+Loaded your food list from ./data/foodList.json\
+Burrito has been added to my food list.\
+Chicken Legs has been added to my food list.\
+Chicken Legs has been added to my day.\
+Chicken Legs has been added to my day.\
+Apple has been added to my day.\
+Banana has been added to my day.\
+Banana has been added to my day.\
 Carrot has been added to my day.
 
 ## Phase 4: Task 3
