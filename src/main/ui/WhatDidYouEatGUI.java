@@ -194,7 +194,7 @@ public class WhatDidYouEatGUI extends JFrame {
                     );
         int dailyGoal = (int) spinner.getValue();
         user = new User(dailyGoal);
-        EventLog.getInstance().logEvent(new Event("Daily calories goal has been set to " + dailyGoal + " calories"));
+        EventLog.getInstance().logEvent(new Event("Daily calories goal has been set to " + dailyGoal + " calories."));
         loadFoodListOption();
     }
 
