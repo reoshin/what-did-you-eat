@@ -13,23 +13,23 @@ import java.util.Date;
 // Reference: https://github.students.cs.ubc.ca/CPSC210/AlarmSystem
 
 public class EventTest {
-    private Event e;
-    private Date d;
+    private Event event;
+    private Date date;
 
     @BeforeEach
     public void runBefore() {
-        e = new Event("Event occured");
-        d = Calendar.getInstance().getTime();
+        event = new Event("Event occured");
+        date = Calendar.getInstance().getTime();
     }
 
     @Test
     public void testEvent() {
-        assertEquals("Event occured", e.getDescription());
-        assertEquals(d, e.getDate());
+        assertEquals("Event occured", event.getDescription());
+        assertEquals(date, event.getDate());
     }
 
     @Test
     public void textToString() {
-        assertEquals(d.toString() + "\n" + "Event occured", e.toString());
+        assertEquals(date.toString() + "\n" + "Event occured", event.toString());
     }
 }

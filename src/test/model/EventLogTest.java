@@ -50,6 +50,6 @@ public class EventLogTest {
         Iterator<Event> itr = el.iterator();
         assertTrue(itr.hasNext());
         assertEquals("Event log cleared.", itr.next().getDescription());
-		assertFalse(itr.hasNext());
+        assertFalse(itr.hasNext());
     }
 }
